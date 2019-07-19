@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.navigation
+package com.example.android.navigation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +23,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
@@ -96,9 +98,11 @@ class GameFragment : Fragment() {
                         setQuestion()
                         binding.invalidateAll()
                     } else {
+                        view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
                         // We've won!  Navigate to the gameWonFragment.
                     }
                 } else {
+                    view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment2)
                     // Game over! A wrong answer sends us to the gameOverFragment.
                 }
             }
