@@ -36,7 +36,18 @@
         android:id="@+id/gameWonFragment"
         android:name="com.example.android.navigation.fragment.GameWonFragment"
         android:label="fragment_game_won"
-        tools:layout="@layout/fragment_game_won" />
+        tools:layout="@layout/fragment_game_won" >
+        <argument
+            android:name="numQuestions"
+            app:argType="integer" />
+        <argument
+            android:name="numCorrect"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_gameWonFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:popUpTo="@+id/titleFragment3" />
+    </fragment>
     <fragment
         android:id="@+id/gameOverFragment2"
         android:name="com.example.android.navigation.fragment.GameOverFragment"
@@ -46,6 +57,8 @@
             android:id="@+id/action_gameOverFragment2_to_gameFragment"
             app:destination="@id/gameFragment"
             app:popUpTo="@+id/titleFragment3" />
+        <argument android:name="numberQues"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
