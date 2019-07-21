@@ -16,10 +16,9 @@
 
 package com.example.android.navigation.fragment
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -39,9 +38,34 @@ class GameWonFragment : Fragment() {
         }
         arguments.let {
             var gameWonFragmentArgs = GameWonFragmentArgs.fromBundle(arguments!!)
-            Toast.makeText(context,gameWonFragmentArgs.numCorrect,Toast.LENGTH_SHORT).show()
+        }
+        setHasOptionsMenu(true)
+        return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater?.inflate(R.menu.winner_menu,menu!!)
+        if(null == getShareIntent().resolveActivity(activity?.packageManager)){
+            menu?.findItem(R.id.share)?.setVisible(false)
+        }
+        super.onCreateOptionsMenu(menu!!, inflater!!)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item!!.itemId) {
+            R.id.share->startShareSuccess()
         }
 
-        return binding.root
+        return super.onOptionsItemSelected(item)
+    }
+    private fun startShareSuccess(){
+        startActivity(getShareIntent())
+    }
+    private  fun getShareIntent():Intent{
+        var args = GameWonFragmentArgs.fromBundle(arguments!!)
+        var shareIntent = Intent(Intent.ACTION_VIEW)
+        shareIntent.setType("text/plain").putExtra(Intent.EXTRA_TEXT,getString(R.string.share_success_text,args.numCorrect,args.numQuestions))
+        return shareIntent
     }
 }
